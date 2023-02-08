@@ -21,6 +21,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "unsplash-js": "^7.0.15",
     "velitherm": "^1.2.0"
   }
 }
