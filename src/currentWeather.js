@@ -1,4 +1,4 @@
-import { getLocationCoords, setBackgroundImg } from "./metUtil.js";
+import { getLocationCoords, setBackgroundImg, calculateWindDirection } from "./metUtil.js";
 import { apiKey } from "./index.js";
 
 export async function getCurrentWeatherHTML() {
@@ -18,32 +18,32 @@ async function fetchCurrWeatherData() {
 }
 
 function getUsedWeatherData(weatherDataObj) {
-    const weatherData = weatherDataObj;
     const currWeather = {
-        currWeatherLocation: weatherData.name,
-        currWeatherCoord: `${weatherData.coord.lon}, ${weatherData.coord.lat}`,
-        currWeatherProperty: weatherData.weather[0].main,
-        currWeatherPropertyDesc: weatherData.weather[0].description,
-        currWeatherID: weatherData.weather[0].id,
-        currWeatherIcon: weatherData.weather[0].icon,
-        currWeatherTemp: weatherData.main.temp,
-        currWeatherTempFL: weatherData.main.feels_like,
-        currWeatherTempMin: weatherData.main.temp_min,
-        currWeatherTempMax: weatherData.main.temp_max,
-        currWeatherTempMax: weatherData.main.temp_max,
-        currWeatherPress: weatherData.main.pressure,
-        currWeatherHum: weatherData.main.humidity,
-        currWeatherVis: weatherData.visibility,
-        currWeatherWindSpeed: weatherData.wind.speed,
-        currWeatherWindDir: weatherData.wind.deg,
-        currWeatherClouds: weatherData.clouds.all,
+        currWeatherLocation: weatherDataObj.name,
+        currWeatherCoord: `${weatherDataObj.coord.lon}, ${weatherDataObj.coord.lat}`,
+        currWeatherProperty: weatherDataObj.weather[0].main,
+        currWeatherPropertyDesc: weatherDataObj.weather[0].description,
+        currWeatherID: weatherDataObj.weather[0].id,
+        currWeatherIcon: weatherDataObj.weather[0].icon,
+        currWeatherTemp: weatherDataObj.main.temp,
+        currWeatherTempFL: weatherDataObj.main.feels_like,
+        currWeatherTempMin: weatherDataObj.main.temp_min,
+        currWeatherTempMax: weatherDataObj.main.temp_max,
+        currWeatherTempMax: weatherDataObj.main.temp_max,
+        currWeatherPress: weatherDataObj.main.pressure,
+        currWeatherHum: weatherDataObj.main.humidity,
+        currWeatherVis: weatherDataObj.visibility,
+        currWeatherWindSpeed: weatherDataObj.wind.speed,
+        currWeatherWindDir: weatherDataObj.wind.deg,
+        currWeatherClouds: weatherDataObj.clouds.all,
     }
     return currWeather;
 }
 
 
 function createCurrentWeatherHTML(filteredWeatherDataObj) {
-    const imgURL = `http://openweathermap.org/img/wn/${filteredWeatherDataObj.currWeatherIcon}@2x.png`
+    const imgURL = `http://openweathermap.org/img/wn/${filteredWeatherDataObj.currWeatherIcon}@2x.png`;
+    const windArrowDeg = calculateWindDirection(filteredWeatherDataObj.currWeatherWindDir);
     const template = `
             <div class="curr-weather-location flex-center-column">
                 <h2>Current weather at:</h2>
@@ -61,7 +61,8 @@ function createCurrentWeatherHTML(filteredWeatherDataObj) {
                 <h5>${filteredWeatherDataObj.currWeatherPropertyDesc}</h5>
             </div>
             <div class="curr-weather-wind flex-center-column">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M13 18h-2v-8l-3.5 3.5l-1.42-1.42L12 6.16l5.92 5.92l-1.42 1.42L13 10v8M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8a8 8 0 0 0 8 8a8 8 0 0 0 8-8a8 8 0 0 0-8-8Z"/></svg>
+                <svg style="transform: rotate(${windArrowDeg}deg);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M13 18h-2v-8l-3.5 3.5l-1.42-1.42L12 6.16l5.92 5.92l-1.42 1.42L13 10v8M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8a8 8 0 0 0 8 8a8 8 0 0 0 8-8a8 8 0 0 0-8-8Z"/></svg>
+                <h6>Wind dir: ${filteredWeatherDataObj.currWeatherWindDir}</h6>
                 <h5>Wind speed: ${filteredWeatherDataObj.currWeatherWindSpeed}</h5>
             </div>
             <div class="curr-weather-misc flex-center-column">

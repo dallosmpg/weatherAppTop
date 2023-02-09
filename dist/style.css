@@ -1,5 +1,7 @@
 :root {
     --bg-img: black;
+    --forecast-grid-num: 1;
+    --daily-forecast-grid-num: 1;
 }
 
 html {
@@ -20,7 +22,7 @@ body {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: auto auto;
 }
 
 .flex-center {
@@ -80,6 +82,26 @@ main {
     border: 1px solid white;
     margin: 3rem;
     grid-column: span 2;
+
+    display: grid;
+    grid-template-columns: repeat(var(--forecast-grid-num), auto);
+    justify-items: center;
+}
+.forecast-day {
+    flex-wrap: nowrap;
+    flex-shrink: .5;
+}
+.forecast-day h3 {
+    flex-basis: 100%;
+    text-align: center;
+}
+.forecast-day img {
+    width: 50px;
+    height: auto;
+}
+.daily-weather-3-hour {
+    margin: .2rem .4rem;
+
 }
 
 footer {
