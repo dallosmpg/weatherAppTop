@@ -12,9 +12,11 @@ function revealContact() {
     document.querySelector('.footer-contact').classList.toggle('hidden');
 }
 
-async function populateCurrWeatherElems(e) {
+async function populateCurrWeatherElems(event) {
+    if (event) event.preventDefault();
     const currWeatherHTML =  await getCurrentWeatherHTML(); 
-    document.querySelector('.current-weather').insertAdjacentHTML('afterbegin', currWeatherHTML);
+    currentWeatherDiv.innerHTML = "";
+    currentWeatherDiv.insertAdjacentHTML('afterbegin', currWeatherHTML);
 }
 
 contactBtn.addEventListener('click', revealContact);
