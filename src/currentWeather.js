@@ -1,9 +1,10 @@
-import { getLocationCoords } from "./metUtil.js";
+import { getLocationCoords, setBackgroundImg } from "./metUtil.js";
 import { apiKey } from "./index.js";
 
 export async function getCurrentWeatherHTML() {
     const weatherData = await fetchCurrWeatherData();
     const weatherDataObj = getUsedWeatherData(weatherData);
+    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc)
     return createCurrentWeatherHTML(weatherDataObj);
 }
 

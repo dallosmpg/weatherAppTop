@@ -1,5 +1,11 @@
+:root {
+    --bg-img: black;
+}
+
 html {
-    color-scheme: dark light;
+    /* color-scheme: dark light; */
+    background-image: var(--bg-img);
+    background-size: cover;
 }
 
 body {
@@ -14,6 +20,7 @@ body {
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .flex-center {
@@ -57,6 +64,22 @@ main {
 .curr-weather-misc {
     grid-column: span 2;
 
+}
+
+.thermal-weather {
+    background: rgba(209, 209, 209, 0.568);
+    padding: 1rem;
+    border: 1px solid white;
+    margin: 3rem;
+
+}
+
+.forecast-weather {
+    background: rgba(209, 209, 209, 0.568);
+    padding: 1rem;
+    border: 1px solid white;
+    margin: 3rem;
+    grid-column: span 2;
 }
 
 footer {
