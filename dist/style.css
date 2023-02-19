@@ -2,23 +2,64 @@
     --bg-img: black;
     --forecast-grid-num: 1;
     --daily-forecast-grid-num: 1;
+    --black: black;
+    --white: white;
+    --darkgrey: darkgrey;
 }
 
 html {
     /* color-scheme: dark light; */
     background-image: var(--bg-img);
     background-size: cover;
+    box-sizing: border-box;
 }
 
 body {
+    position: relative;
     height: 100vh;
-    /* width: 100vw; */
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr auto;
 
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: .1rem;
+}
+h3 {
+    font-size: 1.3rem;
+    margin-bottom: .2rem;
+    font-weight: 600;
+}
+h2 > span {
+    font-weight: 700;
+}
+h4 {
+    font-size: 1.2rem;
+}
+h4 > span {
+    font-weight: 600;
+}
+
+header {
+    box-sizing: border-box;
+    margin: 1rem 3rem;
+}
+
+header input {
+    box-sizing: border-box;
+    width: 100%;
+
+    padding: .7rem 1.5rem;
+    border: 2px solid var(--black);
+    border-radius: 50px;
+
+    color: var(--white);
+    background-color: var(--darkgrey);
+    font-size: 1.5rem;
+}
+
 main {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -37,15 +78,27 @@ main {
     flex-direction: column;
 }
 
+.weather-card {
+    padding: 1rem;
+    border: 1px solid var(--black);
+    border-radius: 10px;
+    margin: 1.5rem;
+
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--white);
+}
+.weather-card-data-group {
+    padding: .5rem;
+    background: var(--darkgrey);
+    border-radius: 10px;
+    color: black;
+}
 .current-weather {          
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    
-    padding: 1rem;
-    border: 1px solid white;
-    margin: 3rem;
-
-    background: rgba(209, 209, 209, 0.568);
+}
+.temp-min-max > * {
+    margin: 0 .2rem;
 }
 .current-weather > * {
     margin: .3rem;
@@ -59,6 +112,9 @@ main {
 .curr-weather-icon {
     grid-column: span 2;
 }
+.curr-weather-icon > h5::first-letter {
+    text-transform: capitalize;
+}
 .curr-weather-wind {
     grid-column: span 2;
 
@@ -69,47 +125,50 @@ main {
 }
 
 .thermal-weather {
-    background: rgba(209, 209, 209, 0.568);
     padding: 1rem;
-    border: 1px solid white;
     margin: 3rem;
 
 }
 
 .forecast-weather {
-    background: rgba(209, 209, 209, 0.568);
     padding: 1rem;
-    border: 1px solid white;
-    margin: 3rem;
     grid-column: span 2;
 
     display: grid;
     grid-template-columns: repeat(var(--forecast-grid-num), auto);
-    justify-items: center;
+    grid-template-rows: 1fr;
+    justify-content: left;
+    overflow: scroll;
 }
 .forecast-day {
-    flex-wrap: nowrap;
-    flex-shrink: .5;
-}
-.forecast-day h3 {
-    flex-basis: 100%;
-    text-align: center;
+    padding: 0 1rem;
+    /* border: 1px solid red; */
 }
 .forecast-day img {
     width: 50px;
     height: auto;
 }
 .daily-weather-3-hour {
+    width: 95px;
     margin: .2rem .4rem;
-
+}
+.daily-weather-3-hour > div {
+    margin-bottom: .5rem;
+}
+.daily-weather-3-hour > div * {
+    margin-bottom: .3rem;
+}
+.weather-icon * {
+    margin: 0;
 }
 
 footer {
-    margin: .2rem; 
     background-color: rgb(226, 178, 89);
-    color: black;
-    border-radius: 5px 5px 0 0;
+    color: var(--black);
+    border-radius: 0 5px 5px 0;
     transition: all .1s ease-in-out;
+    position: sticky;
+    inset: auto 0 0;
 }
 footer * {
     padding: .1rem;
@@ -124,7 +183,7 @@ footer > svg.rotated {
     transform: rotate(.5turn);
 }
 footer svg {
-    color: black;
+    color: var(--black);
 }
 
 .hidden {

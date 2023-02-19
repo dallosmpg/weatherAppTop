@@ -14,7 +14,7 @@ try {
 }
 
 export async function setBackgroundImg(weatherDesc) {
-    const response = await fetch(`https://api.unsplash.com/search/photos?&query=${weatherDesc}&color=green&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`, {mode: 'cors'});
+    const response = await fetch(`https://api.unsplash.com/search/photos?&query=${weatherDesc}&color=white&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`, {mode: 'cors'});
     const imgData = await response.json();
     
     const randomImgFromQuery = Math.floor(Math.random() * imgData.results.length);
@@ -26,5 +26,5 @@ export function setCustomCSSProperty(propertyName, newPropValue) {
 }
 
 export function calculateWindDirection(deg) {
-    return Math.abs(180 - deg);
+    return Math.abs(360 - (180 - deg));
 }
