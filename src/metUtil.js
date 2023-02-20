@@ -8,7 +8,7 @@ try {
     const response = await fetch(locationCoordsUrl, {mode: 'cors'});
     const resData = await response.json();
     const [lat, lon] = [resData[0].lat, resData[0].lon]
-    const elevation = /* await getLocationElevation(lat, lon) */ 140;
+    const elevation = await getLocationElevation(lat, lon);
     return [lat, lon, elevation];
 } catch(err) {
     console.log(err);
@@ -32,8 +32,11 @@ export function calculateWindDirection(deg) {
 }
 
 export async function getLocationElevation(lat, lon) {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const req = await fetch(proxyUrl + `https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`);
-    const reqRes = await req.json();
-    return reqRes.results[0].elevation;
+    try {    
+        const req = await fetch(`https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`, {mode: 'cors', method: 'GET'});
+        const reqRes = await req.json();
+        return reqRes.results[0].elevation;
+    } catch {
+        return 140;
+    }
 }

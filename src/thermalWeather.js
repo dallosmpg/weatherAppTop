@@ -28,7 +28,9 @@ function createThermalWeatherHTML(cB, lclCB) {
 }
 
 function modifyThermalDom(thermalHTML) {
-    document.querySelector('.thermal-weather').insertAdjacentHTML('afterbegin', thermalHTML);
+    const thermalDiv = document.querySelector('.thermal-weather')
+    thermalDiv.innerHTML = '';
+    thermalDiv.insertAdjacentHTML('afterbegin', thermalHTML);
 }
 
 function calculateSeaLevelPressure(temp, press, elev) {

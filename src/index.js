@@ -1,7 +1,8 @@
 import { getForecastWeatherHTML } from "./forecastWeather.js";
 import { getCurrentWeatherHTML } from "./currentWeather.js";
 
-export const locationInput = document.querySelector('#location')
+export const locationInput = document.querySelector('#location');
+let locationInputValue = locationInput.value;
 export const apiKey = 'd64d5c0808808df9dcde98fb9640bcfc';
 const contactBtn = document.querySelector('footer > svg');
 const currentWeatherDiv = document.querySelector('.current-weather');
@@ -12,15 +13,15 @@ function revealContact() {
     document.querySelector('.footer-contact').classList.toggle('hidden');
 }
 
-async function populateCurrWeatherElems(event) {
-    if (event) event.preventDefault();
+async function populateCurrWeatherElems() {
+    currentWeatherDiv.innerHTML = "";
+    currentWeatherDiv.innerHTML = '<div style="grid-column: span 4;" class="spinner">';
     const currWeatherHTML =  await getCurrentWeatherHTML(); 
     currentWeatherDiv.innerHTML = "";
     currentWeatherDiv.insertAdjacentHTML('afterbegin', currWeatherHTML);
 }
 
-async function populateForecastWeatherElems(event) {
-    if (event) event.preventDefault();
+async function populateForecastWeatherElems() {
     if (mainWeatherDisplay.lastElementChild.classList.contains('forecast-weather')) mainWeatherDisplay.removeChild(mainWeatherDisplay.lastElementChild);
     const forecastWeatherElem =  await getForecastWeatherHTML();
     
@@ -29,8 +30,19 @@ async function populateForecastWeatherElems(event) {
 
 
 contactBtn.addEventListener('click', revealContact);
-locationInput.addEventListener('blur', populateCurrWeatherElems);
-locationInput.addEventListener('blur', populateForecastWeatherElems);
-
+locationInput.addEventListener('blur', () => {
+    if (locationInputValue === locationInput.value) return;
+    locationInputValue = locationInput.value;
+    populateCurrWeatherElems();
+    populateForecastWeatherElems();
+});
+document.addEventListener('keypress', (event) => {
+    if (locationInputValue === locationInput.value) return;
+    locationInputValue = locationInput.value;
+    if (event.target === locationInput && event.key === 'Enter') {
+        populateCurrWeatherElems();
+        populateForecastWeatherElems();
+    }
+});
 populateCurrWeatherElems();
-populateForecastWeatherElems()
+populateForecastWeatherElems();
