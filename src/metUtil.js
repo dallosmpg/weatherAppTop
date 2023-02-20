@@ -7,14 +7,16 @@ try {
     const locationCoordsUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${locationInputValue}&limit=5&appid=${apiKey}`
     const response = await fetch(locationCoordsUrl, {mode: 'cors'});
     const resData = await response.json();
-    return [resData[0].lat, resData[0].lon];
+    const [lat, lon] = [resData[0].lat, resData[0].lon]
+    const elevation = /* await getLocationElevation(lat, lon) */ 140;
+    return [lat, lon, elevation];
 } catch(err) {
     console.log(err);
 }
 }
 
 export async function setBackgroundImg(weatherDesc) {
-    const response = await fetch(`https://api.unsplash.com/search/photos?&query=${weatherDesc}&color=white&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`, {mode: 'cors'});
+    const response = await fetch(`https://api.unsplash.com/search/photos?&query=${weatherDesc}&color=red&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`, {mode: 'cors'});
     const imgData = await response.json();
     
     const randomImgFromQuery = Math.floor(Math.random() * imgData.results.length);
@@ -27,4 +29,11 @@ export function setCustomCSSProperty(propertyName, newPropValue) {
 
 export function calculateWindDirection(deg) {
     return Math.abs(360 - (180 - deg));
+}
+
+export async function getLocationElevation(lat, lon) {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const req = await fetch(proxyUrl + `https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`);
+    const reqRes = await req.json();
+    return reqRes.results[0].elevation;
 }

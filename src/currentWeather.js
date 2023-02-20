@@ -1,15 +1,20 @@
 import { getLocationCoords, setBackgroundImg, calculateWindDirection } from "./metUtil.js";
 import { apiKey } from "./index.js";
+import { calculateCloudbase } from "./thermalWeather.js";
+
+let elevation;
 
 export async function getCurrentWeatherHTML() {
     const weatherData = await fetchCurrWeatherData();
     const weatherDataObj = getUsedWeatherData(weatherData);
-    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc)
+    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc);
+    calculateCloudbase(weatherDataObj.currWeatherHum, weatherDataObj.currWeatherPress, weatherDataObj.currWeatherTemp, elevation);
     return createCurrentWeatherHTML(weatherDataObj);
 }
 
 async function fetchCurrWeatherData() {
-    const [lat, lon] = await getLocationCoords();
+    const [lat, lon, elev] = await getLocationCoords();
+    elevation = elev;
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     
     const response = await fetch(url, {mode: 'cors'});
@@ -20,7 +25,7 @@ async function fetchCurrWeatherData() {
 function getUsedWeatherData(weatherDataObj) {
     const currWeather = {
         currWeatherLocation: weatherDataObj.name,
-        currWeatherCoord: `${weatherDataObj.coord.lon}, ${weatherDataObj.coord.lat}`,
+        currWeatherCoord: `${weatherDataObj.coord.lat}, ${weatherDataObj.coord.lon}`,
         currWeatherProperty: weatherDataObj.weather[0].main,
         currWeatherPropertyDesc: weatherDataObj.weather[0].description,
         currWeatherID: weatherDataObj.weather[0].id,
