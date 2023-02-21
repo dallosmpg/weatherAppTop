@@ -6,9 +6,21 @@ const feelsLikeIconSVG = `
 `
 
 export async function getForecastWeatherHTML() {
-    const forecastWeatherData = await fetchForecastWeatherData();
-    const usedForecastData = getUsedForecastData(forecastWeatherData);
-    return createForecastWeatherHTML(usedForecastData);
+    try {    
+        const forecastWeatherData = await fetchForecastWeatherData();
+        const usedForecastData = getUsedForecastData(forecastWeatherData);
+        return createForecastWeatherHTML(usedForecastData);
+    } catch {
+        console.log('error');
+        const forecastErrDiv = document.createElement('div');
+        forecastErrDiv.innerHTML = `
+        <div class="forecast-weather weather-card flex-center-column">
+            <h2>Please try again!</h2>
+            <h4>The data didn't reach us or the location was not found!</h4>
+        </div>`
+        return forecastErrDiv;
+    
+    }
 }
 
 async function fetchForecastWeatherData() {

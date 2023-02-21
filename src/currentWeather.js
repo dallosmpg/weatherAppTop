@@ -5,11 +5,20 @@ import { calculateCloudbase } from "./thermalWeather.js";
 let elevation;
 
 export async function getCurrentWeatherHTML() {
-    const weatherData = await fetchCurrWeatherData();
-    const weatherDataObj = getUsedWeatherData(weatherData);
-    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc);
-    calculateCloudbase(weatherDataObj.currWeatherHum, weatherDataObj.currWeatherPress, weatherDataObj.currWeatherTemp, elevation);
-    return createCurrentWeatherHTML(weatherDataObj);
+    try {
+        const weatherData = await fetchCurrWeatherData();
+        const weatherDataObj = getUsedWeatherData(weatherData);
+        setBackgroundImg(weatherDataObj.currWeatherPropertyDesc);
+        calculateCloudbase(weatherDataObj.currWeatherHum, weatherDataObj.currWeatherPress, weatherDataObj.currWeatherTemp, elevation);
+        return createCurrentWeatherHTML(weatherDataObj);
+    } catch {
+        return `
+        <div class="flex-center-column" style="grid-column: span 4;">
+            <h2>Please try again!</h2>
+            <h4>The data didn't reach us or the location was not found!</h4>
+        </div>
+    `
+    }
 }
 
 async function fetchCurrWeatherData() {
