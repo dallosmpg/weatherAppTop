@@ -75,16 +75,16 @@ function createForecastWeatherHTML(usedForecastDataArr) {
                         <h6>${threeHourForecast.forecastDesc}</h6>
                     </div>
                     <div class="weather-temp flex-center-column">
-                    <h6>${Number.parseFloat(threeHourForecast.forecastTemp).toFixed(1)} °C</h6>
-                    <div style="height: 65px;" class="flex-center-column">
-                        <h5 >Feels like: </h5>
-                        <h5>${Number.parseFloat(threeHourForecast.forecastTempFelt).toFixed(1)} °C</h5>
-                    </div>
+                        <h6>${Number.parseFloat(threeHourForecast.forecastTemp).toFixed(1)} °C</h6>
+                        <div style="height: 65px;" class="flex-center-column">
+                            <h5 >Feels like:</h5>
+                            <h5>${Number.parseFloat(threeHourForecast.forecastTempFelt).toFixed(1)} °C</h5>
+                        </div>
                     </div>
                     <div class="weather-wind flex-center-column">
                         <svg style="transform: rotate(${windArrowDeg}deg);" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M13 18h-2v-8l-3.5 3.5l-1.42-1.42L12 6.16l5.92 5.92l-1.42 1.42L13 10v8M12 2a10 10 0 0 1 10 10a10 10 0 0 1-10 10A10 10 0 0 1 2 12A10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8a8 8 0 0 0 8 8a8 8 0 0 0 8-8a8 8 0 0 0-8-8Z"/></svg>
-                        <h5>${threeHourForecast.forecastWindSpeed}</h5>
-                        <h6>${threeHourForecast.forecastWindGust}</h6>
+                        <h5>${Number.parseFloat(threeHourForecast.forecastWindSpeed).toFixed(1)} m/s</h5>
+                        <h6>${Number.parseFloat(threeHourForecast.forecastWindGust).toFixed(1)} m/s</h6>
                     </div>
                 </div>
                 `

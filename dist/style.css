@@ -46,6 +46,13 @@ h4 > span {
 h5 {
     font-size: 1.1rem;
 }
+.daily-weather-3-hour h5 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+h6 {
+    font-size: 1rem;
+}
 header {
     box-sizing: border-box;
     padding: 1rem 3rem;
@@ -198,6 +205,10 @@ h4::first-letter {
 .daily-weather-3-hour > div * {
     margin-bottom: .3rem;
 }
+.daily-weather-3-hour svg {
+    height: 40px;
+    width: auto;
+}
 .weather-icon * {
     margin: 0;
 }
@@ -231,6 +242,12 @@ footer svg {
     transition: all .2s ease-in-out;
 }
 
+.spinner-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+}
 .spinner {
     --size: 50px;
     --first-block-clr: #005bba;
