@@ -7,6 +7,7 @@ export const apiKey = 'd64d5c0808808df9dcde98fb9640bcfc';
 const contactBtn = document.querySelector('footer > svg');
 const currentWeatherDiv = document.querySelector('.current-weather');
 const mainWeatherDisplay = document.querySelector('main');
+const searchButton = document.querySelector('.location-search-btn');
 
 function revealContact() {
     contactBtn.classList.toggle('rotated');
@@ -44,5 +45,11 @@ document.addEventListener('keypress', (event) => {
         populateForecastWeatherElems();
     }
 });
+searchButton.addEventListener('click', () => {
+    if (locationInputValue === locationInput.value) return;
+    locationInputValue = locationInput.value;
+        populateCurrWeatherElems();
+        populateForecastWeatherElems();
+})
 populateCurrWeatherElems();
 populateForecastWeatherElems();

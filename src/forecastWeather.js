@@ -78,7 +78,7 @@ function createForecastWeatherHTML(usedForecastDataArr) {
                     <h6>${Number.parseFloat(threeHourForecast.forecastTemp).toFixed(1)} °C</h6>
                     <div style="height: 65px;" class="flex-center-column">
                         <h5 >Feels like: </h5>
-                        <h5>${threeHourForecast.forecastTempFelt} °C</h5>
+                        <h5>${Number.parseFloat(threeHourForecast.forecastTempFelt).toFixed(1)} °C</h5>
                     </div>
                     </div>
                     <div class="weather-wind flex-center-column">
