@@ -34,9 +34,8 @@ export function calculateWindDirection(deg) {
 
 export async function getLocationElevation(lat, lon) {
     try {    
-        const req = await fetch(`https://cors-anywhere.herokuapp.com/https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`, {mode: 'cors'});
+        const req = await fetch(`https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`);
         const reqRes = await req.json();
-        console.log(req, reqRes);
         return reqRes.results[0].elevation;
     } catch {
         return 0;

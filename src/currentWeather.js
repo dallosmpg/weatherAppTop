@@ -24,9 +24,9 @@ export async function getCurrentWeatherHTML() {
 async function fetchCurrWeatherData() {
     const [lat, lon, elev] = await getLocationCoords();
     elevation = elev;
-    const url = `https://cors-anywhere.herokuapp.com/https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     
-    const response = await fetch(url, {mode: 'cors', method: 'GET'});
+    const response = await fetch(url)
     const weatherData = await response.json();
     return weatherData;
 }
