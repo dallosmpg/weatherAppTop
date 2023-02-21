@@ -27,7 +27,10 @@ async function fetchForecastWeatherData() {
     const [lat, lon, elev] = await getLocationCoords();
     const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
     
-    const response = await fetch(url, {mode: 'cors'});
+    const response = await fetch(url, {mode: 'cors', headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://gleaming-profiterole-922137.netlify.app/'
+    }});
     const resData = await response.json();
     return resData;
 }

@@ -9,6 +9,7 @@ try {
     const resData = await response.json();
     const [lat, lon] = [resData[0].lat, resData[0].lon]
     const elevation = await getLocationElevation(lat, lon);
+    console.log(elevation);
     return [lat, lon, elevation];
 } catch(err) {
     console.log(err);
@@ -33,7 +34,10 @@ export function calculateWindDirection(deg) {
 
 export async function getLocationElevation(lat, lon) {
     try {    
-        const req = await fetch(`https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`, {mode: 'cors', method: 'GET'});
+        const req = await fetch(`https://api.opentopodata.org/v1/eudem25m?locations=${lat},${lon}`, {mode: 'cors', method: 'GET', headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'http://127.0.0.1:5500/dist/index.html'
+        }});
         const reqRes = await req.json();
         return reqRes.results[0].elevation;
     } catch {
