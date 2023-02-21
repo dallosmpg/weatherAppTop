@@ -25,7 +25,6 @@ async function populateCurrWeatherElems() {
 async function populateForecastWeatherElems() {
     if (document.querySelector('.forecast-weather')) mainWeatherDisplay.removeChild(mainWeatherDisplay.lastElementChild);
     const forecastWeatherElem =  await getForecastWeatherHTML();
-    console.log(forecastWeatherElem);
     
     mainWeatherDisplay.insertAdjacentElement('beforeend', forecastWeatherElem);
 }

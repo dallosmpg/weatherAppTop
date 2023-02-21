@@ -22,8 +22,8 @@ export function calculateCloudbase(hum, press, temp, elev) {
 function createThermalWeatherHTML(cB, lclCB) {
     return `
         <h2>The cloudbase is currently at:</h2>
-        <h2>${cB} meters</h2>
-        <h3>The LCL cloudbase is <span>${lclCB} meters.</span></h3>
+        <h2>${Number.parseFloat(cB).toFixed(0)} meters</h2>
+        <h3>The LCL cloudbase is <span>${Number.parseFloat(lclCB).toFixed(0)} meters.</span></h3>
     `
 }
 
