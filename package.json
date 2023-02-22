@@ -8,6 +8,11 @@
     "build": "webpack",
     "watch": "webpack watch"
   },
+  "eslintConfig": {
+    "extends": [
+      "wesbos"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -21,6 +26,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
+    "eslint-config-wesbos": "^3.2.3",
     "unsplash-js": "^7.0.15",
     "velitherm": "^1.2.0"
   }
