@@ -30,7 +30,8 @@ async function fetchCurrWeatherData() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            'Authorization': 'Bearer d64d5c0808808df9dcde98fb9640bcfc'
         }
     })
     const weatherData = await response.json();
