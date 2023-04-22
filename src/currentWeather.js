@@ -2,6 +2,7 @@ import {
   getLocationCoords,
   setBackgroundImg,
   calculateWindDirection,
+  getTimeOfDay,
 } from './metUtil.js';
 import { apiKey } from './index.js';
 import { calculateCloudbase } from './thermalWeather.js';
@@ -12,7 +13,7 @@ export async function getCurrentWeatherHTML() {
   try {
     const weatherData = await fetchCurrWeatherData();
     const weatherDataObj = getUsedWeatherData(weatherData);
-    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc);
+    setBackgroundImg(weatherDataObj.currWeatherPropertyDesc, getTimeOfDay());
     calculateCloudbase(
       weatherDataObj.currWeatherHum,
       weatherDataObj.currWeatherPress,

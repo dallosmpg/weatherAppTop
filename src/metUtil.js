@@ -14,9 +14,9 @@ export async function getLocationCoords() {
   }
 }
 
-export async function setBackgroundImg(weatherDesc) {
+export async function setBackgroundImg(weatherDesc, timeOfDay) {
   const response = await fetch(
-    `https://api.unsplash.com/search/photos?&query=${weatherDesc}&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`,
+    `https://api.unsplash.com/search/photos?&query=${weatherDesc} ${timeOfDay}&orientation=landscape&client_id=inUZHZYqQ-h7kGW3jhjv0-eVwJIrOsL9YATL4AdZ4i0`,
     { mode: 'cors' }
   );
   const imgData = await response.json();
@@ -40,7 +40,7 @@ export async function getLocationElevation(lat, lon) {
   try {
     const req = await fetch(
       `https://api.opentopodata.org/v1/aster30m?locations=${lat},${lon}`,
-      { method: 'GET' }
+      { method: 'GET', mode: 'cors' }
     );
     const reqRes = await req.json();
     console.log(req, reqRes);
@@ -48,4 +48,21 @@ export async function getLocationElevation(lat, lon) {
   } catch {
     return 108;
   }
+}
+
+export function getTimeOfDay() {
+  const hour = new Date().getHours();
+  let timeOfDay;
+
+  if (hour >= 5 && hour < 12) {
+    timeOfDay = 'morning';
+  } else if (hour >= 12 && hour < 15) {
+    timeOfDay = 'noon';
+  } else if (hour >= 15 && hour < 20) {
+    timeOfDay = 'afternoon';
+  } else {
+    timeOfDay = 'night';
+  }
+
+  return timeOfDay;
 }
