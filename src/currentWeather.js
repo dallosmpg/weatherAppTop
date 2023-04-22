@@ -36,7 +36,7 @@ async function fetchCurrWeatherData() {
   elevation = elev;
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
-  const response = await fetch(url);
+  const response = await fetch(url, { mode: 'cors' });
   const weatherData = await response.json();
   return weatherData;
 }
